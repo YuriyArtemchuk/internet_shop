@@ -1,0 +1,64 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}Вхід{% endblock title %}
+
+{% block content %}
+     <!-- Start Banner Area -->
+	<section class="banner-area organic-breadcrumb">
+		<div class="container">
+			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+				<div class="col-first">
+					<h1>Авторизація</h1>
+					<nav class="d-flex align-items-center">
+						<a href="/">Головна<span class="lnr lnr-arrow-right"></span></a>
+						<a href="#">Авторизація</a>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End Banner Area -->
+
+	<!--================Login Box Area =================-->
+	<section class="login_box_area section_gap">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="login_box_img">
+						<img class="img-fluid" src="{% static 'img/login.jpg' %}" alt="">
+						<div class="hover">
+							<h4>Якщо ви ще не зареєстровані?</h4>
+							<p>Перейдіть за цим посиланням</p>
+							<a class="primary-btn" href="/account/reg">Створити аккаунт</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="login_form_inner">
+						<h3>Введіть Ваш логін та Пароль</h3>
+						<form class="row login_form"  action="/account/entry" onsubmit="return true" method="post" id="contactForm" novalidate="novalidate">   <!-- novalidate="novalidate -->
+							{% csrf_token %}
+							<div class="col-md-12 form-group">
+								<input type="text" class="form-control" id="login" name="login" placeholder="Логін" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Логін'" required>
+								<div id="login-err" class="error"></div>
+							</div>
+							<div class="col-md-12 form-group">
+								<input type="password" class="form-control" id="pass1" name="pass1" placeholder="Пароль" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Пароль'" required>
+								<div id="pass1-err" class="error"></div>
+							</div>
+							<div class="col-md-12 form-group" style="margin-top: 50px" >
+								<button type="submit" id="submit" value="Підтвердити" class="primary-btn">Авторизуватисьь</button>
+							</div>
+							<div class="col-md-12 form-group" style="margin-top: 20px">
+								<button type="reset" id="reset" value="Очистити" class="btn btn-outline-warning">Очистити введені дані</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--================End Login Box Area =================-->
+
+{% endblock content %}

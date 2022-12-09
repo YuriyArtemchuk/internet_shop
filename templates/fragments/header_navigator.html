@@ -1,10 +1,11 @@
 	{% load static %}
+	{% load i18n %}
 	<header class="header_area sticky-header">
 		<div class="main_menu">
 			<nav class="navbar navbar-expand-lg navbar-light main_box">
 				<div class="container">
 					<!-- Brand and toggle get grouped for better mobile display -->
-					<a class="navbar-brand logo_h" href="index.html"><img src="{% static 'img/logo.png' %}" alt=""></a>
+					<a class="navbar-brand logo_h" href="/home"><img src="{% static 'img/new_logo4.jpg' %}" alt="" style="width: 200px; margin-left: -50px;"></a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 					 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="icon-bar"></span>
@@ -14,10 +15,11 @@
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 						<ul class="nav navbar-nav menu_nav ml-auto">
-							<li class="nav-item active"><a class="nav-link" href="/home">Головна</a></li>
-							<li class="nav-item active"><a class="nav-link" href="/home/about">Про нас</a></li>
-							<li class="nav-item"><a class="nav-link" href="/home/contacts">Контакти</a></li>
-							<li class="nav-item submenu dropdown">
+							<li class="nav-item active"><a class="nav-link" href="/home">{% trans 'Main' %}</a></li>
+							<li class="nav-item active"><a class="nav-link" href="/home/about">{% trans 'About' %}</a></li>
+							<li class="nav-item"><a class="nav-link" href="/home/contacts">{% trans 'Contact' %}</a></li>
+							<li class="nav-item"><a class="nav-link" href="/catalog/index">{% trans 'Catalog' %}</a></li>
+							<!-- <li class="nav-item submenu dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false">Магазин</a>
 								<ul class="dropdown-menu">
@@ -27,13 +29,14 @@
 									<li class="nav-item"><a class="nav-link" href="/cart/index">Корзина</a></li>
 									<li class="nav-item"><a class="nav-link" href="#">Підтверждення</a></li>
 								</ul>
-							</li>
+							</li> -->
+							
 							<li class="nav-item submenu dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Блог</a>
+								 aria-expanded="false">{% trans 'News' %}</a>
 								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="/home/news">Новини</a></li>
-									<li class="nav-item"><a class="nav-link" href="#">Блог</a></li>
+									<li class="nav-item"><a class="nav-link" href="/home/news">{% trans 'News' %}</a></li>
+									<!-- <li class="nav-item"><a class="nav-link" href="#">{% trans 'Blog' %</a></li> -->
 								</ul>
 							</li>
 						</ul>
@@ -51,11 +54,11 @@
 								<input type="hidden" id="user_id" value="{{ user.id }}">
 							</li>
 							{% if not user.is_authenticated %}
-								<li class="nav-item active"><a class="nav-link" href="#">Вхід</a></li>
-								<li class="nav-item active"><a class="nav-link" href="#">Зареєструватись</a></li>
+								<li class="nav-item active"><a class="nav-link" href="/account/entry">{% trans 'Signin' %}</a></li>
+								<li class="nav-item active"><a class="nav-link" href="/account/reg">{% trans 'Signup' %}</a></li>
 							{% else %}
-								<li class="nav-item active"><a class="nav-link" href="#">Вихід</a></li>
-								<li class="nav-item active"><a class="nav-link" href="#">Профіль</a></li>
+								<li class="nav-item active"><a class="nav-link" href="/account/exit">{% trans 'Exit' %}</a></li>
+								<li class="nav-item active"><a class="nav-link" href="/account/profile">{% trans 'Profile' %}</a></li>
 							{% endif %}
 						</ul>
 
@@ -64,20 +67,20 @@
 								<div class="single-product" style="margin: auto">
 									<div class="product-details" style="margin: auto">
 										<div class="prd-bottom " style="margin: auto">
-											<a href="#" class="cart nav-link dropdown-toggle social-info" data-toggle="dropdown" role="button" aria-haspopup="true"
+											<a href="/cart/index" class="cart nav-link dropdown-toggle social-info"  role="button" aria-haspopup="true"
 											 aria-expanded="false" style="margin-top: px; ">
 												<span class="ti-bag qty" id="cart-count" style="font-size: 14; "> 0</span>
-												<p class="hover-text " style="margin-top: 10px">Кошик</p>
+												<p class="hover-text " style="margin-top: 10px">{% trans 'Cart' %}</p>
 											</a>
 											<ul class="dropdown-menu cart-summary" style="margin-top: -20px;">
 												<li class="nav-item" style="text-align: center;">
 													<h5 style="font-size: 0.9rem; color: darkcyan; font-size: 16px; padding-top: 10px; margin-top: 10px; text-align: center;">
-														0 товарів обрано
+														0 {% trans 'TovarivObrano' %}
 													</h5>
 												</li>
 												<li class="nav-item">
 													<h4 style="font-size: 0.9rem; color: navy; padding-top: 10px; text-align: center;">
-														ВАРТІСТЬ: 0.00 грн
+														{% trans 'Vartist' %}: 0.00 {% trans 'Hrv' %}
 													</h4>
 												</li>
 											</ul>
@@ -92,20 +95,20 @@
 								<div class="single-product" style="margin: auto">
 									<div class="product-details" style="margin: auto">
 										<div class="prd-bottom " style="margin: auto">
-											<a href="#" class="cart nav-link dropdown-toggle social-info" data-toggle="dropdown" role="button" aria-haspopup="true"
+											<a href="#" class="cart nav-link dropdown-toggle social-info"  role="button" aria-haspopup="true"
 											 aria-expanded="false" style="margin-top: px; margin-left: 0px">
 												<span class="lnr lnr-heart qty-wish" id="wish-count" style="font-size: 14; "> 0</span>
-												<p class="hover-text " style="margin-top: 10px">Бажання</p>
+												<p class="hover-text " style="margin-top: 10px">{% trans 'Wish' %}</p>
 											</a>
 											<ul class="dropdown-menu wish-summary" style="margin-top: -20px">
 												<li class="nav-item" >
 													<h5 style="font-size: 0.9rem; color: darkcyan; font-size: 16px; padding-top: 10px; margin-top: 10px; text-align: center;">
-														0 товарів обрано
+														0 {% trans 'TovarivObrano' %}
 													</h5>
 												</li>
 												<li class="nav-item">
 													<h4 style="font-size: 0.9rem; color: navy; padding-top: 10px; text-align: center;">
-														ВАРТІСТЬ: 0.00 грн
+														{% trans 'Vartist' %}: 0.00 {% trans 'Hrv' %}
 													</h4>
 												</li>
 											</ul>
@@ -127,11 +130,12 @@
 		<div class="search_input" id="search_input_box">
 			<div class="container">
 				<form class="d-flex justify-content-between">
-					<input type="text" class="form-control" id="search_input" placeholder="Пошук">
+					<input type="text" class="form-control" id="search_input" placeholder="{% trans 'Search' %}">
 					<button type="submit" class="btn"></button>
-					<span class="lnr lnr-cross" id="close_search" title="Завершити пошук"></span>
+					<span class="lnr lnr-cross" id="close_search" title="{% trans 'EndSearch' %}"></span>
 				</form>
 			</div>
 		</div>
 	</header>
 	<script src="{% static 'js/cart_display.js' %}"></script>
+	<script src="{% static 'js/wish_display.js' %}"></script>

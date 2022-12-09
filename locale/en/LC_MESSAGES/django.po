@@ -1,0 +1,307 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-12-07 23:34+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\catalog\views.py:23 .\catalog\views.py:75
+msgid "PageTitle"
+msgstr "Catalog Page"
+
+#: .\root\settings.py:137
+msgid "Ukrainian"
+msgstr ""
+
+#: .\root\settings.py:138
+msgid "English"
+msgstr ""
+
+#: .\templates\cart\index.html:13 .\templates\cart\index.html:16
+#: .\templates\catalog\index.html:240 .\templates\catalog\index.html:258
+#: .\templates\fragments\header_navigator.html:73
+msgid "Cart"
+msgstr ""
+
+#: .\templates\cart\index.html:15 .\templates\catalog\index.html:13
+#: .\templates\fragments\header_navigator.html:18
+#: .\templates\orders\order.html:16
+msgid "Main"
+msgstr ""
+
+#: .\templates\cart\index.html:33
+msgid "Name"
+msgstr ""
+
+#: .\templates\cart\index.html:34
+msgid "Photo"
+msgstr ""
+
+#: .\templates\cart\index.html:35 .\templates\catalog\index.html:179
+msgid "Price"
+msgstr ""
+
+#: .\templates\cart\index.html:36
+msgid "Quintity"
+msgstr ""
+
+#: .\templates\cart\index.html:37
+msgid "Choice"
+msgstr ""
+
+#: .\templates\cart\index.html:38 .\templates\cart\index.html:76
+msgid "Delete"
+msgstr ""
+
+#: .\templates\cart\index.html:88 .\templates\orders\order.html:67
+msgid "TotalCost"
+msgstr "Total Cost"
+
+#: .\templates\cart\index.html:91 .\templates\catalog\index.html:180
+#: .\templates\catalog\index.html:232 .\templates\catalog\index.html:233
+#: .\templates\fragments\header_navigator.html:83
+#: .\templates\fragments\header_navigator.html:111
+msgid "Hrv"
+msgstr "hrv"
+
+#: .\templates\cart\index.html:103
+msgid "Continue shoppingt"
+msgstr ""
+
+#: .\templates\cart\index.html:104
+msgid "Go to order"
+msgstr ""
+
+#: .\templates\catalog\index.html:11 .\templates\catalog\index.html:14
+#: .\templates\fragments\header_navigator.html:21
+msgid "Catalog"
+msgstr ""
+
+#: .\templates\catalog\index.html:37
+msgid "CATALOG"
+msgstr ""
+
+#: .\templates\catalog\index.html:40
+msgid "AllGoods"
+msgstr ""
+
+#: .\templates\catalog\index.html:45
+msgid "Reset all filters"
+msgstr ""
+
+#: .\templates\catalog\index.html:48
+msgid "CATEGORYOFGOODS"
+msgstr "CATEGORY"
+
+#: .\templates\catalog\index.html:56
+msgid "BRANDS"
+msgstr ""
+
+#: .\templates\catalog\index.html:66
+msgid "ConfirmSelection"
+msgstr "Confirm selection"
+
+#: .\templates\catalog\index.html:175
+msgid "PriceRange"
+msgstr "Price range"
+
+#: .\templates\catalog\index.html:182
+msgid "to"
+msgstr ""
+
+#: .\templates\catalog\index.html:197
+msgid "Polarity"
+msgstr ""
+
+#: .\templates\catalog\index.html:198
+msgid "Rising prices"
+msgstr ""
+
+#: .\templates\catalog\index.html:199
+msgid "Reducing prices"
+msgstr ""
+
+#: .\templates\catalog\index.html:204 .\templates\catalog\index.html:272
+msgid "Show 10"
+msgstr ""
+
+#: .\templates\catalog\index.html:205 .\templates\catalog\index.html:273
+msgid "Show 20"
+msgstr ""
+
+#: .\templates\catalog\index.html:206 .\templates\catalog\index.html:274
+msgid "Show 30"
+msgstr ""
+
+#: .\templates\catalog\index.html:245
+#: .\templates\fragments\header_navigator.html:101
+msgid "Wish"
+msgstr ""
+
+#: .\templates\catalog\index.html:249
+#, fuzzy
+#| msgid "MyCompany"
+msgid "Compare"
+msgstr "STEP TOP"
+
+#: .\templates\catalog\index.html:253
+msgid "Detail"
+msgstr ""
+
+#: .\templates\fragments\footer.html:9 .\templates\fragments\footer.html:12
+#: .\templates\fragments\header_navigator.html:19
+msgid "About"
+msgstr ""
+
+#: .\templates\fragments\footer.html:19
+#: .\templates\fragments\header_navigator.html:36
+#: .\templates\fragments\header_navigator.html:38
+msgid "News"
+msgstr ""
+
+#: .\templates\fragments\footer.html:20
+msgid "FollowOurNews"
+msgstr ""
+
+#: .\templates\fragments\footer.html:47
+msgid "Instagram"
+msgstr ""
+
+#: .\templates\fragments\footer.html:62
+msgid "Pidpysuysya"
+msgstr "Follow us"
+
+#: .\templates\fragments\footer.html:63
+msgid "BudWithUs"
+msgstr "Stay with us"
+
+#: .\templates\fragments\footer.html:75
+msgid "MyCompany"
+msgstr "STEP TOP"
+
+#: .\templates\fragments\header_navigator.html:20
+msgid "Contact"
+msgstr ""
+
+#: .\templates\fragments\header_navigator.html:57
+msgid "Signin"
+msgstr ""
+
+#: .\templates\fragments\header_navigator.html:58
+msgid "Signup"
+msgstr ""
+
+#: .\templates\fragments\header_navigator.html:60
+msgid "Exit"
+msgstr ""
+
+#: .\templates\fragments\header_navigator.html:61
+msgid "Profile"
+msgstr ""
+
+#: .\templates\fragments\header_navigator.html:78
+#: .\templates\fragments\header_navigator.html:106
+msgid "TovarivObrano"
+msgstr "shoes are selected"
+
+#: .\templates\fragments\header_navigator.html:83
+#: .\templates\fragments\header_navigator.html:111
+msgid "Vartist"
+msgstr "COST"
+
+#: .\templates\fragments\header_navigator.html:133
+msgid "Search"
+msgstr ""
+
+#: .\templates\fragments\header_navigator.html:135
+msgid "EndSearch"
+msgstr ""
+
+#: .\templates\layouts\base.html:15
+msgid "ShortCaption"
+msgstr "Page name"
+
+#: .\templates\orders\order.html:14
+msgid "Order"
+msgstr ""
+
+#: .\templates\orders\order.html:17 .\templates\orders\order.html:31
+msgid "OrderPlacing"
+msgstr ""
+
+#: .\templates\orders\order.html:88
+msgid "ToConfirmOrder"
+msgstr "To confirm the order, enter your contact information"
+
+#: .\templates\orders\order.html:96
+msgid "EnterFirstName"
+msgstr ""
+
+#: .\templates\orders\order.html:101
+msgid "EnterLasttName"
+msgstr ""
+
+#: .\templates\orders\order.html:104
+msgid "EnterPhone"
+msgstr ""
+
+#: .\templates\orders\order.html:113
+msgid "ChoiceDelivery"
+msgstr ""
+
+#: .\templates\orders\order.html:115
+msgid "NovaPoshta"
+msgstr ""
+
+#: .\templates\orders\order.html:116
+msgid "UkrPoshta"
+msgstr ""
+
+#: .\templates\orders\order.html:117
+msgid "CourierDelivery"
+msgstr ""
+
+#: .\templates\orders\order.html:131
+msgid "WriteByCourier"
+msgstr "Write down when choosing a courier delivery method"
+
+#: .\templates\orders\order.html:133
+msgid "StreetHouse"
+msgstr "Street name and house number"
+
+#: .\templates\orders\order.html:138
+msgid "OtherInfo"
+msgstr "Additional Information"
+
+#: .\templates\orders\order.html:142
+msgid "AgreeRules"
+msgstr "I have read and agree to the rules"
+
+#: .\templates\orders\order.html:143
+msgid "PublicContract"
+msgstr "Public contract"
+
+#: .\templates\orders\order.html:147
+msgid "Confirm"
+msgstr ""
+
+#: .\templates\orders\order.html:161
+msgid "OrderConfirmation"
+msgstr ""
+
+#: .\templates\orders\order.html:165
+msgid "ReturnCart"
+msgstr "Return to cart"

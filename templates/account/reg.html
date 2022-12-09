@@ -1,0 +1,93 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}Реєстрація{% endblock title %}
+
+{% block content %}
+    <!-- Start Banner Area -->
+	<section class="banner-area organic-breadcrumb">
+		<div class="container">
+			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+				<div class="col-first">
+					<h1>Реєстрація</h1>
+					<nav class="d-flex align-items-center">
+						<a href="/">Головна<span class="lnr lnr-arrow-right"></span></a>
+						<a href="#">Реєстрація</a>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End Banner Area -->
+
+	<!--================Login Box Area =================-->
+	<section class="login_box_area section_gap">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="login_box_img">
+						<img class="img-fluid" src="{% static 'img/login.jpg' %}" alt="">
+						<div class="hover">
+							<h4>Для зареєстрованих клієнтів!</h4>
+							<p>Для входу до свого аккаунту перейдіть за посиланням</p>
+							<a class="primary-btn" href="/account/entry">Вхід в аккаунт</a>
+						</div>
+					</div>
+				</div>
+				<!-- Start LOG IN -->
+				<div class="col-lg-6">
+					<div class="login_form_inner">
+						<h3>Зареєструйтесь для входу</h3>
+						<form class="row login_form"  action="/account/reg" onsubmit="return true" method="post" id="contactForm" novalidate="novalidate">   <!-- novalidate="novalidate -->
+							{% csrf_token %}
+							<div class="col-md-12 form-group">
+								<input type="text" class="form-control" id="login" name="login" placeholder="Логін" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Логін'" required>
+								<span id="login-err" class="error"></span>
+							</div>
+							<div class="col-md-12 form-group">
+								<input type="password" class="form-control" id="pass1" name="pass1" placeholder="Пароль" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Пароль'" required>
+								<span id="pass1-err" class="error"></span>
+							</div>
+							<div class="col-md-12 form-group">
+								<input type="password" class="form-control" id="pass2" name="pass2" placeholder="Повтор пароля" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Повтор пароля'" required>
+								<span id="pass2-err" class="error"></span>
+							</div>
+							<div class="col-md-12 form-group">
+								<input type="email" class="form-control" id="email" name="email" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'" required>
+								<span id="email-err" class="error"></span>
+							</div>
+							<div class="col-md-12 form-group">
+								<!-- checkbox
+								<div class="creat_account">
+									<input type="checkbox" id="f-option2" name="selector">
+									<label for="f-option2">Keep me logged in</label>
+								</div>
+								 -->
+							</div>
+							<div class="col-md-12 form-group" style="margin-top: 50px" >
+								<button type="submit" id="submit" value="Підтвердити" class="primary-btn">Зареєструватись</button>
+							</div>
+							<div class="col-md-12 form-group" style="margin-top: 20px">
+								<button type="reset" id="reset" value="Очистити" class="btn btn-outline-warning">Очистити введені дані</button>
+							</div>
+						</form>
+					</div>
+				</div>
+				<!-- End LOG IN -->
+				<style>
+					.form-group {
+					margin: auto
+					}
+					.error {
+						color: red;
+						margin-bottom: 10px;
+						display: block;
+					}
+				</style>
+			</div>
+		</div>
+	</section>
+	<!--================End Login Box Area =================-->
+	<script src="{% static 'js/ajax_signup.js' %}"></script>
+	
+{% endblock content %}

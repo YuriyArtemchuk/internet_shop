@@ -1,0 +1,36 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}{{ page_title }}{% endblock title %}
+
+{% block content %}
+
+
+    <!-- Start Banner Area -->
+    <section class="banner-area organic-breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+                <div class="col-first">
+                    <h1>Сторінка оплати</h1>
+                    <nav class="d-flex align-items-center">
+                        <a href="/home">Головна<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="/orders/order/0">Оформлення замовлення</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Banner Area -->
+
+    <!--================Checkout Area =================-->
+    <section class="checkout_area section_gap" style="margin-top: -70px">
+        <div class="container">
+            <div class="billing_details">
+                <h3 style="color: red">{{ page_title }}</h3>
+            </div>
+        </div>
+    </section>
+    <!--================End Checkout Area =================-->
+    
+    
+{% endblock content %}

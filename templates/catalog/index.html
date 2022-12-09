@@ -1,6 +1,6 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
-
+{% load i18n %}
 {% block content %}
 
 	<!-- Start Banner Area -->
@@ -8,11 +8,11 @@
 		<div class="container">
 			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
 				<div class="col-first">
-					<h1>Каталог товарів</h1>
+					<h1>{% trans 'Catalog' %}в</h1>
 					<nav class="d-flex align-items-center">
-						<a href="/home">Головна<span class="lnr lnr-arrow-right"></span></a>
-						<a href="#">Каталог<span class="lnr lnr-arrow-right"></span></a>
-						<a href="#">Категорії товарів</a>
+						<a href="/home">{% trans 'Main' %}<span class="lnr lnr-arrow-right"></span></a>
+						<a href="#">{% trans 'Catalog' %}<span class="lnr lnr-arrow-right"></span></a>
+						
 					</nav>
 				</div>
 			</div>
@@ -20,43 +20,146 @@
 	</section>
 	<!-- End Banner Area -->
 
-	<div class="container">
+	<div class="container" style=" margin-bottom: 100px">
 
 		<div class="row">
             <!-- Start Aside -->
 			<div class="col-xl-3 col-lg-4 col-md-5">
 				<div class="sidebar-categories">
-					<div class="head">Категорії товарів</div>
-					<ul class="main-categories">
-					{% for c in all_categories %}
-						<li class="main-nav-list"><a data-toggle="collapse" href="#fruitsVegetable" aria-expanded="false" aria-controls="fruitsVegetable"><span
-								 class="lnr lnr-arrow-right"></span>{{ c.name }}<span class="number">(0)</span></a>
-							<ul class="collapse" id="fruitsVegetable" data-toggle="collapse" aria-expanded="false" aria-controls="fruitsVegetable">
-								<li class="main-nav-list child"><a href="#">Група розмірів 19-26<span class="number">(0)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Група розмірів 27-32<span class="number">(0)</span></a></li>
-								<li class="main-nav-list child"><a href="#">Група розмірів 33-38<span class="number">(0)</span></a></li>
-							</ul>
-						</li>
-					{% endfor %}
-					</ul>
+					<!-- <div class="head">Категорії товарів</div> -->
+					
+
+
+					    <!-- Filter radio -->
+					<form action="/catalog/index" method="post">
+						{% csrf_token %}
+
+						<div class="head" style="margin-top: 0px">{% trans 'CATALOG' %}</div>
+						<div style="margin-top: 10px; color: darkcyan">
+							<input type="radio" name="category" value="all" checked>
+							<label for="category_name">{% trans 'AllGoods' %}</label><br>	
+						</div>	
+
+						<div style="margin-top: 10px; color: orange">
+							<input type="radio" id="category_name" name="category" value="reset" >
+							<label for="category_name">{% trans 'Reset all filters' %}</label><br>
+						</div>
+
+						<div class="head" style="margin-top: 10px">{% trans 'CATEGORYOFGOODS' %}</div>
+						{% for c in all_categories %}
+						<div style="margin-top: 10px">
+							<input type="radio" id="category_name" name="category" value="{{ c.name }}">
+							<label for="category_name"> {{ c.name }}</label><br>
+						</div>
+						{% endfor %}
+
+						<div class="head" style="margin-top: 10px">{% trans 'BRANDS' %}</div>
+						{% for brand in all_producers %}
+						<div style="margin-top: 10px">
+							<input type="radio" id="category_name" name="category" value="{{ brand.name }}">
+							<label for="category_name"> {{ brand.name }}</label><br>
+						</div>
+						{% endfor %}
+					
+						<div  style="margin-top: 20px">
+							<!-- <input type="submit" value="Підтвердити вибір"> -->
+							<button type="submit" id="submit" value="Підтвердити вибір" class="btn btn-sm primary-btn ">{% trans 'ConfirmSelection' %}</button>
+						</div>
+					
+						</form>
+						<!-- END ЧЕКБОКС -->
+
+
+                    <!-- Radio form  - працює, але тільки якщо вибирати дві позиції (category + brands) -->
+
+					<!-- <form action="/catalog/index" method="post">
+						<div class="head">КАТЕГОРІЇ ТОВАРІВ</div>
+						{% csrf_token %}
+						<ul style="margin-top: 15px">
+							{% for c in all_categories %}
+							<li class="filter-list"><input class="pixel-radio my-category" type="radio" id="{{ c.name }}" name="category_name" value="{{ c.name }}">
+								<label for="category_name" id="choice-category">{{ c.name }}<span></span></label>
+							</li>
+							{% endfor %}
+						</ul>
+						<div class="head" style="margin-top: 15px">БРЕНДИ</div>
+						<ul style="margin-top: 15px">
+							{% for brand in all_producers %}
+							<li class="filter-list"><input class="pixel-radio my-brand" type="radio" id="{{ brand.name }}" name="brand-name" value="{{ brand.name }}">
+								<label for="brand-name" id="choice-brand">{{ brand.name }}<span></span></label>
+							</li>
+							{% endfor %}
+						</ul>
+
+							<div class="col-auto" style="margin-top: 15px">
+								<input type="submit" value="Відсортувати" class="btn btn-primary"/>
+							</div>
+							<div class="col-auto" style="margin-top: 15px">
+								<input type="reset" value="Сбросити всі фільтри" class="btn btn-secondary"/>
+							</div>
+						</form> -->
+
+					 <!-- End Radio form  - працює, але тільки якщо вибирати дві позиції (category + brands) -->
+
+					<!-- <form action="/catalog/index" method="post">
+						{% csrf_token %}
+						<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+						  Вибір категорії
+						</button>
+						<ul class="main-categories " name="category_name">
+						{% for c in all_categories %}
+							<li class="main-nav-list" ><a data-toggle="collapse" href="#fruitsVegetable" aria-expanded="false" aria-controls="fruitsVegetable"><span
+									class="lnr lnr-arrow-right"></span>{{ c.name }}<span class="number">(0)</span></a>
+								<ul class="collapse" id="fruitsVegetable" data-toggle="collapse" aria-expanded="false" aria-controls="fruitsVegetable">
+									<li class="main-nav-list child"><a href="#">Група розмірів 19-26<span class="number">(0)</span></a></li>
+									<li class="main-nav-list child"><a href="#">Група розмірів 27-32<span class="number">(0)</span></a></li>
+									<li class="main-nav-list child"><a href="#">Група розмірів 33-38<span class="number">(0)</span></a></li>
+								</ul>
+							</li>
+						{% endfor %}
+						</ul>
+					<div class="col-auto">
+						<input type="submit" value="Вибрати" class="btn btn-primary"/>
+					</div>
+					</form> -->
+
+
+					<!-- <div>
+						<form method="post" action="/catalog/index" class="row mt-3 text-center">
+							{% csrf_token %}
+							
+								<select class="main-categories"  name="category_name">		
+									{% for c in all_categories %}
+										<option style="width: 100%">{{ c.name }}</option>
+									{% endfor %}
+								</select>
+							
+							<div class="col-auto">
+								<input type="submit" value="Вибрати" class="btn btn-primary"/>
+							</div>
+						</form>
+	                </div> -->
+
 				</div>
+				
+
 				<!-- Start sidebar-filter -->
 				<div class="sidebar-filter mt-50">
-					<div class="top-filter-head">Виробники</div>
-					<div class="common-filter">
-						<div class="head">Бренди</div>
+					<!-- <div class="top-filter-head">Виробники</div>
+					<div class="common-filter"> -->
+						<!-- <div class="head">Бренди</div> -->
 
-						<form action="#">
+						<!-- <form action="#">
 							<ul>
 								{% for brand in all_producers %}
 								<li class="filter-list"><input class="pixel-radio" type="radio" id="{{ brand.name }}" name="{{ brand.name }}"><label for="{{ brand.name }}">{{ brand.name }}<span>(0)</span></label></li>
 								{% endfor %}
 							</ul>
-						</form>
+						</form> -->
 
-					</div>
+					<!-- </div> -->
 
-					<div class="common-filter">
+					<!-- <div class="common-filter">
 						<div class="head">Колір</div>
 						<form action="#">
 							<ul>
@@ -67,16 +170,16 @@
 								<li class="filter-list"><input class="pixel-radio" type="radio" id="spacegrey" name="color"><label for="spacegrey">Сірий<span>(0)</span></label></li>
 							</ul>
 						</form>
-					</div>
+					</div> -->
 					<div class="common-filter">
-						<div class="head">Діапазон цін</div>
+						<div class="head">{% trans 'PriceRange' %}</div>
 						<div class="price-range-area">
 							<div id="price-range"></div>
 							<div class="value-wrapper d-flex">
-								<div class="price">Ціни:</div>
-								<span>грн</span>
+								<div class="price">{% trans 'Price' %}:</div>
+								<span>{% trans 'Hrv' %}</span>
 								<div id="lower-value"></div>
-								<div class="to">до</div>
+								<div class="to">{% trans 'to' %}</div>
 								<span>грн</span>
 								<div id="upper-value"></div>
 							</div>
@@ -91,19 +194,19 @@
 				<div class="filter-bar d-flex flex-wrap align-items-center">
 					<div class="sorting">
 						<select>
-							<option value="1">За пополярністю</option>
-							<option value="1">За зростанням цін</option>
-							<option value="1">За зниженням цін</option>
+							<option value="1">{% trans 'Polarity' %}</option>
+							<option value="1">{% trans 'Rising prices' %}</option>
+							<option value="1">{% trans 'Reducing prices' %}</option>
 						</select>
 					</div>
 					<div class="sorting mr-auto">
 						<select>
-							<option value="1">Показувати 10</option>
-							<option value="1">Показувати 20</option>
-							<option value="1">Показувати 50</option>
+							<option value="1">{% trans 'Show 10' %}</option>
+							<option value="1">{% trans 'Show 20' %}</option>
+							<option value="1">{% trans 'Show 30' %}</option>
 						</select>
 					</div>
-					<div class="pagination">
+					<!-- <div class="pagination">
 						<a href="#" class="prev-arrow"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>
 						<a href="#" class="active">1</a>
 						<a href="#">2</a>
@@ -111,13 +214,13 @@
 						<a href="#" class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
 						<a href="#">6</a>
 						<a href="#" class="next-arrow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
-					</div>
+					</div> -->
 				</div>
 				<!-- End Filter Bar -->
-
+				
 				<!-- Start Catalog -->
 				<section class="lattest-product-area pb-40 category-list">
-					<div class="row">
+					<div class="row my-select">
 						<!-- single product -->
 						{% for product in paginate_products %}
 						<div class="col-lg-4 col-md-6">
@@ -126,33 +229,33 @@
 								<div class="product-details">
 									<h6>{{ product.name }}</h6>
 									<div class="price">
-										<h6>{{ product.price }} грн</h6>
-										<h6 class="l-through">{{ product.first_price }}грн</h6>
+										<h6>{{ product.price }} {% trans 'Hrv' %}</h6>
+										<h6 class="l-through">{{ product.first_price }}{% trans 'Hrv' %}</h6>
 									</div>
 
 									<div class="prd-bottom ">
 										<input type="hidden" value="{{ product.id }}">
 										<a  class="social-info add-to-cart-btn" role="button">  <!-- href="#" для планой роботи сторінки без перезавантаження -->
 											<span class="ti-bag"></span>
-											<p class="hover-text">В кошик</p>
+											<p class="hover-text">{% trans 'Cart' %}</p>
 										</a>
 										<input type="hidden" value="{{ product.id }}">
 										<a class="social-info add-to-wish" role="button">   <!-- href="#" с ней не работало -->
 											<span class="lnr lnr-heart"></span>
-											<p class="hover-text">В бажання</p>
+											<p class="hover-text">{% trans 'Wish' %}</p>
 										</a>
 										<a href="" class="social-info">
 											<span class="lnr lnr-sync"></span>
-											<p class="hover-text">Порівняти</p>
+											<p class="hover-text">{% trans 'Compare' %}</p>
 										</a>
 										<a href="" class="social-info">
 											<span class="lnr lnr-move"></span>
-											<p class="hover-text">Детальніше</p>
+											<p class="hover-text">{% trans 'Detail' %}</p>
 										</a>
 									</div>
 									<div class="add-to-cart">
 										<input type="hidden" value="{{ product.id }}">
-										<button class="add-to-cart-btn btn-warning"><l class="fa fa-shopping-cart"></l> До кошика</button>
+										<button class="add-to-cart-btn btn-warning"><l class="fa fa-shopping-cart"></l> {% trans 'Cart' %}</button>
 									</div>
 								</div>
 							</div>
@@ -166,9 +269,9 @@
 				<div class="filter-bar d-flex flex-wrap align-items-center">
 					<div class="sorting mr-auto">
 						<select>
-							<option value="1">Показувати 10</option>
-							<option value="1">Показувати 20</option>
-							<option value="1">Показувати 50</option>
+							<option value="1">{% trans 'Show 10' %}</option>
+							<option value="1">{% trans 'Show 20' %}</option>
+							<option value="1">{% trans 'Show 30' %}</option>
 						</select>
 					</div>
 
@@ -195,4 +298,5 @@
 	</div>
 <script src="{% static 'js/cart.js' %}"></script>
 <script src="{% static 'js/wish.js' %}"></script>
+<script src="{% static 'js/ajax_sort_catalog.js' %}"></script>
 {% endblock content %}

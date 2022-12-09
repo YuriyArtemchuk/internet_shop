@@ -1,0 +1,18 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}Звіт про авторизацію{% endblock title %}
+
+{% block content %}
+    <section class="features-area section_gap">
+		<div class="container">
+            <div class="row features-inner" style="margin-top: 45px; margin-bottom: 45px; padding: 40px 40%">
+                <h3 style="color: darkcyan;">Звіт про авторизацію</h3>
+            </div>
+            <h4 style="color: navy; padding: 40px 40%">
+                {{ mess }}
+            </h4>
+        </div>
+    </section>
+
+{% endblock content %}

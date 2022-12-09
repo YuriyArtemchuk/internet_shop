@@ -1,12 +1,21 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
 
+{% block title %}Контакти{% endblock title %}
+
 {% block content %}
     <section class="features-area section_gap">
 		<div class="container">
             <div class="row features-inner">
-                <h3 style="color: darkcyan; row text-center; margin: 50pt">Контент сторінки "Контакти"</h3>
+                <h3 style="color: darkcyan; margin: 50pt">Контент сторінки "Контакти"</h3>
+                
             </div>
+            <div class="contacts-map">
+                <div class="contacts-map-canvas" id="map_canvas" style="height: 600px; width: 1130px;margin-left: -10px;">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1268.702651660809!2d30.442983258194403!3d50.508025100676484!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4cd765f264dd7%3A0xddc5f3cdd75fa334!2z0IbQvdGC0LXRgNC90LXRgiDQvNCw0LPQsNC30LjQvSAi0JHQsNGI0LzQsNGH0LrQuCIgLSDQtNC40YLRj9GH0LUg0LLQt9GD0YLRgtGP!5e0!3m2!1sru!2sua!4v1636302051173!5m2!1sru!2sua" width="100%" height="600" style="border:0;" allowfullscreen="" loading="lazy">
+                    </iframe>        
+                </div>
+            </div>  
         </div>
     </section>
 

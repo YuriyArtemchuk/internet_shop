@@ -1,0 +1,182 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% load i18n %}
+{% block title %}{{ page_title }}{% endblock title %}
+
+{% block content %}
+
+
+    <!-- Start Banner Area -->
+    <section class="banner-area organic-breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+                <div class="col-first">
+                    <h1>{% trans 'Order' %}</h1>
+                    <nav class="d-flex align-items-center">
+                        <a href="/home">{% trans 'Main' %}<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="#">{% trans 'OrderPlacing' %}</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Banner Area -->
+
+    <!-- {{ user_order }} -->
+
+    <!--Start Order Area  -->
+    <div class="section">
+        <div class="container">
+            <div class="row text-center" style="margin-left: 350px; margin-top: -50px; margin-bottom: 50px;">
+                <h2 style="color: darkorange">{% trans 'OrderPlacing' %}</h2>
+            </div>
+            <div class="row text-center">
+            <!--  -->
+            
+                {% for item in final_list %}
+                <div class="mb-3 col-md-4">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="/media/{{ item.product_photo }}"
+                                alt="..."
+                                width="100%"
+                                class="img-fluid rounded-start">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h4 class="card-title" style="color: purple">
+                                    {{ item.product_name }}
+                                </h4>
+                                <h5 style="color: darkcyan">
+                                    {{ item.category_name }}
+                                </h5>
+                                <h4 style="color: blue">
+                                    {{ item.product_price }} грн.
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+                <div style="clear: both"></div>
+                
+            </div>
+            <div class="card" style="width: 400px; margin-left: 350px; background: orange;">
+                <h4 style="color: white; margin: 15px; text-align: center; font-size: 22px;">
+                    {% trans 'TotalCost' %}:
+                    
+                    <span style="color: red" id="total_id" name="total_id">
+                        {{ total_price }}
+                    </span>
+                    
+                </h4>
+            </div>
+
+            
+
+        </div>
+    </div>
+    <!-- Stop Order Area -->
+    <!--================Checkout Area =================-->
+    <section class="checkout_area section_gap">
+        <div class="container">
+            <div class="billing_details">
+                <div class="row">
+                    <div class="col-lg-8" style="margin-left: 150px; margin-top: -30px; text-align: center;">
+                        <h3 style="font-size: 22px; margin-bottom: 20px; margin-top: -20px; color: darkorange">
+                            {% trans 'ToConfirmOrder' %} 
+                        </h3>
+
+                        <form class="row contact_form" action="" method="post">
+                            {% csrf_token %}
+                            <div class="col-md-6 form-group p_star">
+
+                            <!-- <label for="first"></label> -->
+                            <input type="text" class="form-control" id="first" name="first" placeholder="{% trans 'EnterFirstName' %}:" required>   
+                                <!-- <input type="text" class="form-control" id="first" name="first" >
+                                <span class="placeholder" data-placeholder="І'мя"></span> -->
+                            </div>
+                            <div class="col-md-6 form-group p_star">
+                                <input type="text" class="form-control" id="last" name="last" placeholder="{% trans 'EnterLasttName' %}" required>
+                            </div>    
+                            <div class="col-md-6 form-group p_star">
+                                <input type="text" class="form-control" id="phone" name="phone" placeholder="{% trans 'EnterPhone' %}" required>
+                                <!-- <span class="placeholder" data-placeholder="Номер телефона"></span> -->
+                            </div>
+                            <div class="col-md-6 form-group p_star">
+                                <input type="text" class="form-control" id="email" name="compemailany" disabled>
+                                <span class="placeholder" data-placeholder="Email: ">{{ user_email }}</span>
+                                
+                            </div>
+                            <div class="col-md-12 form-group p_star">
+                                <p style="font-size: 17px; color: darkorange">{% trans 'ChoiceDelivery' %}:</p>
+                                <select class="country_select" id="company" name="company" required>
+                                    <option  value="1">{% trans 'NovaPoshta' %}</option>
+                                    <option value="2">{% trans 'UkrPoshta' %}</option>
+                                    <option value="3">{% trans 'CourierDelivery' %}</option>
+                                </select>
+                            </div>
+                            
+                            <div class="col-md-12 form-group p_star">
+                                <input type="text" class="form-control" id="city" name="city" placeholder="{% trans 'City' %}" required>
+                            </div>
+                            <div class="col-md-12 form-group p_star">
+                                <input type="text" class="form-control" id="depot" name="depot" placeholder="{% trans 'Depot' %}">
+                            </div>
+                            
+                            <div class="col-md-12 form-group p_star">
+                                <label for="add2" style="font-size: 17px; color: darkorange">{% trans 'WriteByCourier' %} </label>
+                                <input type="text" class="form-control" id="add2" name="add2" placeholder="{% trans 'StreetHouse' %}" style="margin-top: 10px">
+                            </div>
+                            <div class="col-md-12 form-group p_star">
+
+                                <input type="text" class="form-control" id="info" name="info" placeholder="{% trans 'OtherInfo' %}">
+                                
+                            </div>
+                            <div class="col-md-12 form-group p_star" style="color: red; font-size: 20px ">
+                                <input type="checkbox" id="f-option7" name="f-option7" value="check" required>
+                                <label for="f-option7">{% trans 'ConfirmInput' %} </label>
+                                
+                            </div>
+                            
+                            <!-- <div class="creat_account col-md-12 " style="margin-top: 50px" >
+                                <button  type="submit" id="submit" value="Підтвердити" class="primary-btn">{% trans 'Confirm' %}</button>
+                            </div> -->
+                            <div class="col-md-12 form-group" style="margin-top: 20px">
+								<button type="reset" id="reset" value="Очистити" class="btn btn-outline-warning">Очистити введені дані</button>
+							</div>
+                            
+                            <!-- <button onclick="document.location='/orders/confirm/{{ init_list }}/{{ order_id }}'">Підтвердження замовлення</button> -->
+                        </form>
+                        
+                    </div>
+                 
+                </div>
+                
+                <input type="hidden"  id="order" value="{{ order_id }}">
+                <input type="hidden"  id="init" value="{{ init_list }}">
+                <p id="my-order">{{ delivery_id }}</p>
+
+                <div style="margin-top: 20px; margin-left: 370px;">
+                    <p>
+                        <!-- <a href="/orders/confirm/{{ init_list }}/{{ order_id }}" class="btn primary-btn bill-btn my-order" type="submit" role="button">
+                            {% trans 'OrderConfirmation' %}
+                        </a>
+                        &nbsp; -->
+                        <a href="/cart/index" class="btn gray_btn">
+                            {% trans 'ReturnCart' %}
+                        </a>
+                    </p>
+                </div>
+                
+                <div id="result" style="margin-top: 30px; margin-left: 370px;">
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================End Checkout Area =================-->
+    <script src="{% static 'js/ajax_delivery_info.js' %}"> </script>
+    
+{% endblock content %}

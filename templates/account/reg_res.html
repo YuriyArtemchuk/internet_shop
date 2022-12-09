@@ -1,0 +1,21 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}Звіт про Реєстрацію{% endblock title %}
+
+{% block content %}
+    <section class="features-area section_gap">
+		<div class="container" style="text-align: center; margin-top: 45px; margin-bottom: 45px;">
+            <div class="row features-inner" style="margin-top: 45px; margin-bottom: 45px; padding: 40px 40%">
+                <h3 style="color: darkcyan;">Звіт про Реєстрацію</h3>
+            </div>
+            <h4 style="color: navy">
+                {{ mess }}
+            </h4>
+            <h4 style="color: darkcyan">
+                {{ info }}
+            </h4>
+        </div>
+    </section>
+
+{% endblock content %}

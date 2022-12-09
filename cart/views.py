@@ -3,6 +3,14 @@ from django.http import JsonResponse
 from .models import CartItem
 
 
+def index(request):
+    return render(request, 'cart/index.html', {
+        'page_title': 'Управління кошиком',
+        'user_items': CartItem.objects.filter(user_id=request.user.id),
+        'k': 0
+    })
+
+
 def ajax_cart(request):
     response = dict()
     uid = request.GET['uid']
@@ -42,4 +50,14 @@ def ajax_cart_display(request):
     return JsonResponse({
         'count': len(user_items),
         'amount': amount
+    })
+
+
+def ajax_del_cart(request):
+    del_id = request.GET['del_id']
+    del_item = CartItem.objects.get(id=del_id)
+    del_item_name = del_item.product.name
+    del_item.delete()
+    return JsonResponse({
+        'report': f"Товар {del_item_name} успішно видален!"
     })

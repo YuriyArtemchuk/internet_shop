@@ -1,0 +1,117 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% load i18n %}
+{% block title %}{{ page_title }}{% endblock title %}
+
+{% block content %}
+
+
+    <!-- Start Banner Area -->
+    <section class="banner-area organic-breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+                <div class="col-first">
+                    <h1>Спосіб оплати</h1>
+                    <nav class="d-flex align-items-center">
+                        <a href="/home">Головна<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="/orders/order/0">Оформлення замовлення</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Banner Area -->
+
+    <!--================Checkout Area =================-->
+    <section class="checkout_area section_gap" style="margin-top: -70px">
+        <div class="container">
+            <div class="billing_details">
+                <div class="row">
+                    <div class="col-lg-12" style="margin-left: 400px; margin-top: 0px; text-align: center;">
+                        <div class="row text-center" style="margin-left: -80px; margin-top: -50px; margin-bottom: 50px;">
+                            <h2 style="color: darkorange">Ваше замовлення успішно оформлено!</h2>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="order_box">
+                                <h2 style="color: darkcyan;">Замовлення № {{ order_id }}<br> від {{ date_order }} </h2>
+                                
+                                <ul class="list">
+                                    <li><a href="#" style="color: black; font-size: 16px">Назва товару <span>Вартість, грн</span></a></li>
+                                    {% for item in info_list %}
+                                    <li><a href="#">{{ item.product_name }}<span class="last">{{ item.product_price }}</span></a></li>
+                                    {% endfor %}
+                                </ul>
+                                <ul class="list list_2" style="margin-top: 10px">
+                                    <li><a href="#">Загальна вартість: <span>{{ total }} грн.</span></a></li>
+                                </ul>
+                                <hr>
+                                <ul class="list list_2" style="margin-top: 10px">
+                                    <li ><a href="#" style="color: darkcyan; font-size: 16px">Інформація про по відправку: </a></li>
+                                    <li><a href="#" style="color: darkolivegreen; font-size: 12px">Транспортна компанія: <span class="last">{{ delivery_company }}</span></a></li>
+                                    <li><a href="#" style="color: darkolivegreen; font-size: 12px; text-align:left; padding-left: 30px ;">Населений пункт: <span class="last">{{ delivery_city }}</span></a></li>
+                                    <li><a href="#" style="color: darkolivegreen; font-size: 12px; text-align:left; padding-left: 30px ">Контактний телефон: <span class="last">{{ delivery_phone }}</span></a></li>
+                                <hr>  
+                                <ul class="list"></ul>
+                                    <li ><a href="#" style="color: darkcyan; font-size: 16px; margin-top: 10px">Способи оплати: </a></li>
+                                </ul>
+                                <form action="/orders/confirm/{{ init_list }}/{{ order_id }}" method="post">
+                                    {% csrf_token %}
+                                    <div class="payment_item form-group">
+                                        <div class="radion_btn">
+                                            <input  type="radio" id="f-option5" name="selector" value="1">
+                                            <label for="f-option5">Зробити передплату</label>
+                                            <div class="check"></div>
+                                        </div>
+                                        <p>При здійсненні передплати доставка Вашого замовлення буде за рахунок Продавця</p>
+                                    </div>
+                                    <div class="payment_item active">
+                                        <div class="radion_btn">
+                                            <input  type="radio" id="f-option6" name="selector" value="2" checked>
+                                            <label for="f-option6">Оплатити при отриманні</label>
+                                            <div class="check"></div>
+                                        </div>
+                                        <p>При оплаті замовлення після отримання, Ви додатково ще сплачується комісію за наложений платіж</p>
+                                    </div>
+                                    <div class="creat_account">
+                                        <input type="checkbox" id="f-option4" name="f-option4" value="check" required>
+                                        <label for="f-option4">З правилами ознайомлен і погоджуюсь </label>
+                                        <a href="#">Публічний договір оферти</a>
+                                    </div>
+                                    <!-- <div>{{ current_order }}</div>
+                                    <div>{{ current_delivery }}</div> -->
+                                    <div>
+                                        <input type="submit" class="primary-btn form-control" value="Підтвердити спосіб оплати">
+                                    </div>
+                                    <div>
+                                        <a class="gray_btn bill-btn" href="/catalog/index">Продовжити покупки</a>
+                                    </div>
+                            
+                                </form>
+                                
+                                
+                            </div>
+                        </div>
+                        
+
+                    </div>
+                </div>
+                
+                <!-- <div style="margin-top: 30px; margin-left: 320px;">
+                    <p>
+                        <a href="/orders/confirm/{{ init_list }}" class="btn primary-btn bill-btn">
+                            Підтвердження замовлення
+                        </a>
+                        &nbsp;
+                        <a href="/cart/index" class="btn gray_btn">
+                            Повернутись до кошика
+                        </a>
+                    </p>
+                </div> -->
+            </div>
+        </div>
+    </section>
+    <!--================End Checkout Area =================-->
+    
+    
+{% endblock content %}
