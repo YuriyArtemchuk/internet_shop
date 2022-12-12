@@ -49,22 +49,6 @@ def index(request):
             all_products = Product.objects.all() 
         elif product_by_category == 'all':
             all_products = Product.objects.all()           
-        # if product_by_category:
-        #     current_category = Category.objects.get(name=product_by_category)
-        #     all_products = Product.objects.filter(category=current_category) 
-        # elif product_by_brand:
-        #     current_brand = Producer.objects.get(name=product_by_brand)
-        #     all_products = Product.objects.filter(producer=current_brand)
-        # elif product_by_category and product_by_brand:
-        #     current_category = Category.objects.get(name=product_by_category)
-        #     pre_all_products = Product.objects.filter(category=current_category) 
-        #     current_brand = Producer.objects.get(name=product_by_brand)
-        #     all_products = pre_all_products.filter(producer=current_brand)
-        # current_category = Category.objects.get(name=product_by_category)
-        # all_products = Product.objects.filter(category=current_category)  
-        #
-        # current_brand = Producer.objects.get(name=product_by_brand)
-        # all_products = Product.objects.filter(producer=current_brand)
         #
         page_size = 5
         paginator = Paginator(all_products, page_size)
