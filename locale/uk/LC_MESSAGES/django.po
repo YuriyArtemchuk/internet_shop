@@ -117,7 +117,7 @@ msgstr "БРЕНДИ"
 
 #: .\templates\catalog\index.html:66
 msgid "ConfirmSelection"
-msgstr "Підьвердити вибір"
+msgstr "Підтвердити вибір"
 
 #: .\templates\catalog\index.html:175
 msgid "PriceRange"

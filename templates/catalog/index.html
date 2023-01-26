@@ -35,6 +35,33 @@
 						{% csrf_token %}
 
 						<div class="head" style="margin-top: 0px">{% trans 'CATALOG' %}</div>
+						
+						{% if category_selected == 0 %}
+							<li >Всі товари</li>
+						{% else %}
+							<li><a href="/catalog/index">Всі товари</a></li>
+						{% endif %}
+
+						<div class="head" style="margin-top: 10px">{% trans 'CATEGORYOFGOODS' %}</div>
+						{% for c in all_categories %}
+						{% if c.pk == category_selected %}
+							<li>{{c.name}}</li>
+						{% else %}
+							<li><a href="{{ c.get_absolute_url }}">{{c.name}}</a></li>
+						{% endif %}
+						{% endfor %}
+						
+						<div class="head" style="margin-top: 10px">{% trans 'BRANDS' %}</div>
+						{% for p in all_producers %}
+						{% if p.pk == category_selected %}
+							<li class="selected">{{p.name}}</li>
+						{% else %}
+							<li><a href="{{ p.get_absolute_url }}">{{p.name}}</a></li>
+						{% endif %}
+						{% endfor %}
+
+
+						<!-- <div class="head" style="margin-top: 0px">{% trans 'CATALOG' %}</div>
 						<div style="margin-top: 10px; color: darkcyan">
 							<input type="radio" name="category" value="all" checked>
 							<label for="category_name">{% trans 'AllGoods' %}</label><br>	
@@ -62,12 +89,12 @@
 						{% endfor %}
 					
 						<div  style="margin-top: 20px">
-							<!-- <input type="submit" value="Підтвердити вибір"> -->
+							
 							<button type="submit" id="submit" value="Підтвердити вибір" class="btn btn-sm primary-btn ">{% trans 'ConfirmSelection' %}</button>
 						</div>
-					
+					 -->
 						</form>
-						<!-- END ЧЕКБОКС -->
+						<!-- END Radio -->
 
 
                     <!-- Radio form  - працює, але тільки якщо вибирати дві позиції (category + brands) -->
@@ -171,7 +198,7 @@
 							</ul>
 						</form>
 					</div> -->
-					<div class="common-filter">
+					<!-- <div class="common-filter">
 						<div class="head">{% trans 'PriceRange' %}</div>
 						<div class="price-range-area">
 							<div id="price-range"></div>
@@ -184,7 +211,7 @@
 								<div id="upper-value"></div>
 							</div>
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
             <!-- End Aside -->
@@ -222,7 +249,8 @@
 				<section class="lattest-product-area pb-40 category-list">
 					<div class="row my-select">
 						<!-- single product -->
-						{% for product in paginate_products %}
+						<!-- object_list  - назва списку за замовченням при використанні класу ListView -->
+						{% for product in all_products %}
 						<div class="col-lg-4 col-md-6">
 							<div class="single-product products">
 								<img class="img-fluid" src="/media/{{ product.photo }}" alt="">
@@ -274,23 +302,42 @@
 							<option value="1">{% trans 'Show 30' %}</option>
 						</select>
 					</div>
+					
 
-					<div class="pagination ">
-						{% if paginate_products.has_previous %}
-							<a href="?page={{ paginate_products.previous_page_number}}" class="prev-arrow"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>
+					<div class="pagination">
+						{% if page_obj.has_other_pages %}
+						{% if page_obj.has_previous %}
+							<li>
+								<a href="?page={{ page_obj.previous_page_number }}">&lt</a>
+							</li>
+							{% if page_obj.number > 3 %}
+							<li>
+								<a href="?page=1">1</a>
+							</li>
+							<li><a href="">...</a></li>
+							{% endif %}
 						{% endif %}
-							<a href="?page=1" class="active">1</a>
-
-							<a href="?page=2">2</a>
-							<a href="?page=3">3</a>
-
-							<a href="#" class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
-							<a href="?page={{ paginate_products.paginator.num_pages }}">{{ paginate_products.paginator.num_pages }}</a>
-						{% if paginate_products.has_next %}
-							<a href="?page={{ paginate_products.next_page_number }}" class="next-arrow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+							{% for p in paginator.page_range %}
+								{% if page_obj.number == p %}
+									<li>
+										<a href="?page={{ p }}" class="active">{{ p }}</a>
+									</li>
+								{% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
+									<li>
+										<a href="?page={{ p }}">{{ p }}</a>
+									</li>
+								{% endif %}
+							{% endfor %}
+						{% if page_obj.has_next %}
+							{% if page_obj.number <= paginator.num_pages|add:-3 %}
+								<li><a href="">...</a></li>
+								<li><a href="?page={{ paginator.num_pages }}">{{ paginator.num_pages }}</a></li>
+							{% endif %}
+							<li><a href="?page={{ page_obj.next_page_number }}">&gt</a></li>
+						{% endif %}
 						{% endif %}
 					</div>
-				</div>
+				</div> 
 				<!-- End Filter Bar -->
 			</div>
 		</div>
