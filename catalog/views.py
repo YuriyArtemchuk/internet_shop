@@ -10,9 +10,9 @@ from orders.models import Order, Delivery
 
 
 def index(request):
-    
+    page_size = 3
     if request.method == "GET":
-        page_size = 5
+        
         all_products = Product.objects.all()
         #
         paginator = Paginator(all_products, page_size)
@@ -50,7 +50,6 @@ def index(request):
         elif product_by_category == 'all':
             all_products = Product.objects.all()           
         #
-        page_size = 5
         paginator = Paginator(all_products, page_size)
         page_number = request.GET.get('page')
         paginate_products = paginator.get_page(page_number)

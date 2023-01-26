@@ -290,6 +290,29 @@
 							<a href="?page={{ paginate_products.next_page_number }}" class="next-arrow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
 						{% endif %}
 					</div>
+
+					<!-- <div class="pagination my-paginator">
+						<span class="step-links">
+							{% if paginate_products.has_previous %}
+								<a class="green" href="?page=1">&laquo; Перша</a>
+								<a class="green" href="?page={{ paginate_products.previous_page_number}}"> Попередня</a>
+							{% endif %}
+
+							<span class="current">
+								Сторінка {{ paginate_products.number }} із
+								{{ paginate_products.paginator.num_pages }}
+							</span>
+
+							{% if paginate_products.has_next %}
+								<a class="red" href="?page={{ paginate_products.next_page_number}}">Наступна</a>
+								<a class="red" href="?page={{ paginate_products.paginator.num_pages}}"> Остання &raquo;</a>
+
+							{% endif %}
+
+						</span>
+					</div> -->
+
+
 				</div>
 				<!-- End Filter Bar -->
 			</div>

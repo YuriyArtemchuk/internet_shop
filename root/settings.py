@@ -157,7 +157,15 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-EMAIL_HOST = 'smtp.mailtrap.io'
-EMAIL_HOST_USER = 'f67ede752e745d'
-EMAIL_HOST_PASSWORD = '3ec4bad080776b'
-EMAIL_PORT = '2525'
+# EMAIL_HOST = 'smtp.mailtrap.io'
+# EMAIL_HOST_USER = 'f67ede752e745d'
+# EMAIL_HOST_PASSWORD = '3ec4bad080776b'
+# EMAIL_PORT = '2525'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST  =  "smtp.gmail.com" 
+EMAIL_HOST_USER  =  "ua.artemchyk@gmail.com" 
+EMAIL_HOST_PASSWORD  =  'pgjdpstvblolxast' 
+EMAIL_PORT  =  587 
+EMAIL_USE_TLS  =  True
+
