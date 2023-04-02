@@ -4,15 +4,24 @@ from django.core.mail import send_mail
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from cart.models import CartItem
-from orders.models import Order, Delivery
+from orders.models import Order, Delivery, ProductInOrder
+from catalog.models import Product
 
 
 def order(request, sel_list: str):
+
     items_str = sel_list.split(',')
     items_int = [int(x) for x in items_str]
     id_items = items_int[0:-1]
     total_price= items_int[-1]
-        #
+    user_id = request.user.id
+    user_email = request.user.email
+    #
+    new_order = Order.objects.create(
+        user = User.objects.get(id=user_id),
+        amount=total_price,
+    )
+    #
     final_list = []
     for id in id_items:
         item = CartItem.objects.get(id=id)
@@ -21,22 +30,47 @@ def order(request, sel_list: str):
             'category_name': item.product.category.name,
             'product_price': item.product.price,
             'product_photo': item.product.photo,
+            'product_qty': item.qty_in_cart,
         }) 
-    user_id = request.user.id
-    user_email = request.user.email
+        product_in_backet = CartItem.objects.get(id=id)
+        ProductInOrder.objects.create(
+            user=User.objects.get(id=user_id),
+            order=new_order,
+            product=product_in_backet.product,
+            qty_in_cart=product_in_backet.qty_in_cart
+        )
     #
-    new_order = Order.objects.create(
-        user = User.objects.get(id=user_id),
-        amount=total_price,
-    )    
+    product_in_cart = CartItem.objects.values('product', 'qty_in_cart')
+    product_in_order = ProductInOrder.objects.values('product', 'qty_in_cart').filter(order=new_order)
+    not_ordered_product = product_in_cart.difference(product_in_order)
+    #                                  
+    if not_ordered_product:
+        delete_product_in_cart(request, user_id)
+        # CartItem.objects.filter(user_id=user_id).delete() 
+        for i in range(len(not_ordered_product)):
+
+            id_not_ordered = not_ordered_product[i].get('product')
+            CartItem.objects.create(                      
+                user=User.objects.get(id=user_id),
+                product=Product.objects.get(id=id_not_ordered),
+                status='Очікування обробки замовлення',
+                qty_in_cart=not_ordered_product[i].get('qty_in_cart'),
+            )
+    else:
+        delete_product_in_cart(request, user_id)
+        # CartItem.objects.filter(user_id=user_id).delete() 
+    
     if request.method == "GET":        
         return render(request, 'orders/order.html', {
             'page_title': "Оформлення замовлення",
             'total_price': total_price,
             'final_list': final_list,
-            'init_list': sel_list,
+            'init_list': sel_list,                               # як варіант - створити новий список з id товарів з ProductInOrder для передачі в order/confirm
             'user_email': user_email,
-            'order_id': new_order.id,
+            'order_id': new_order.id, 
+            'not_ordered_product': not_ordered_product,
+            'product_in_cart': product_in_cart,
+            'product_in_order': product_in_order
         })
     # elif request.method == "POST":
         
@@ -72,8 +106,10 @@ def order(request, sel_list: str):
             
         # })  
 
+def delete_product_in_cart(request, user_id):
+    CartItem.objects.filter(user_id=user_id).delete() 
 
-def confirm(request, init_list: list, order_id):
+def confirm(request, init_list, order_id):
 
     current_order = Order.objects.get(id=order_id)
     current_delivery = Delivery.objects.get(order=current_order)
@@ -84,13 +120,16 @@ def confirm(request, init_list: list, order_id):
     total_price = sel_list_num[-1]  
     info_list = []
     #
-    for id in id_list:
-        item = CartItem.objects.get(id=id)
+    product_from_basket = ProductInOrder.objects.filter(order=current_order)
+    for i in range(len(product_from_basket)):
+        item = ProductInOrder.objects.get(id=product_from_basket[i].id)
         info_list.append({
         'product_name': item.product.name,
+        'qty_in_cart': item.qty_in_cart,
         'category_name': item.product.category.name,      
         'product_price': item.product.price,
     }) 
+
     #
     if request.method == "GET":        
         return render(request, 'orders/confirm.html', {
@@ -98,13 +137,14 @@ def confirm(request, init_list: list, order_id):
             'order_id': order_id,
             'date_order': current_order.date_order,
             'info_list': info_list,
-            "total": total_price,
             'init_list': init_list,
+            "total": total_price,
             'current_order': current_order,
             'current_delivery': current_delivery,
             'delivery_city': current_delivery.city,
             'delivery_phone': current_delivery.phone,
             'delivery_company': current_delivery.company,
+            
         })
     elif request.method == 'POST':
         pay = request.POST['selector']
@@ -155,6 +195,7 @@ def confirm(request, init_list: list, order_id):
                 """
             #
             success = send_mail(subject, '', 'InternetShop "STEP"', [user_email], fail_silently=False, html_message=body)
+            # success = True
             if success:
                 return render(request, 'orders/success.html', {
                     'page_title': "Подяка за замовлення",
@@ -171,7 +212,14 @@ def success(request):
     return render(request, 'orders/success.html', {
         'page_title': "Подяка за замовлення",
         
-    })             
+    })   
+
+def failed(request):
+    
+    return render(request, 'orders/failed.html', {
+        'page_title': "Помилка при оформленні",
+        
+    })            
 
 def ajax_delivery_info(request):
     response = dict()

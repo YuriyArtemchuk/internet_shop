@@ -114,3 +114,36 @@ def pageNotFound(request, exception):                                     # не
     return HttpResponseNotFound('Страница не найдена - 404')
 
 
+def product_detail(request, prod_id):
+    product = Product.objects.get(pk=prod_id)
+    return render(request, "catalog/product.html", {
+        "page_title": _('PageTitle'),
+        'product': product,
+        # 'product_pk': product.pk,
+        
+    })
+
+
+def ajax_cart_product_page(request):
+    response = dict()
+    uid = request.GET['uid']
+    pid = request.GET['pid']
+    response['uid'] = uid
+    response['pid'] = pid
+    #
+    CartItem.objects.create(
+        user_id=uid,
+        product_id=pid,
+        status='Очікування обробки замовлення'
+    )
+    response['report'] = "Товар успішно збережений у кошику"
+    user_items = CartItem.objects.filter(user_id=uid)
+    amount = 0.0
+    for item in user_items:
+        amount += item.product.price
+    #
+    response['count'] = len(user_items)
+    response['amount'] = amount
+    return JsonResponse(response)
+
+
