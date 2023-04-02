@@ -56,7 +56,9 @@ $(document).ready(() => {
                     if (response['result'] === 'Ok') {
                         console.log('Ok');
                         let initList = response.init;
+                        console.log("initList", initList)
                         let orderId = response.order;
+                        console.log("orderId", orderId)
                         $('#result').html('');
                         var insert_result = `<p><a href="/orders/confirm/${initList}/${orderId}" class="btn primary-btn bill-btn my-order" type="submit" role="button">Підтвердження замовлення</a></p>`;
                         $('#result').html(insert_result);

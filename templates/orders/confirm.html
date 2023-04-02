@@ -40,6 +40,7 @@
                                     <li><a href="#" style="color: black; font-size: 16px">Назва товару <span>Вартість, грн</span></a></li>
                                     {% for item in info_list %}
                                     <li><a href="#">{{ item.product_name }}<span class="last">{{ item.product_price }}</span></a></li>
+                                    <li><a href="#">Кількість: {{ item.qty_in_cart }} шт.<span class="last"></span></a></li>
                                     {% endfor %}
                                 </ul>
                                 <ul class="list list_2" style="margin-top: 10px">
@@ -78,15 +79,14 @@
                                         <label for="f-option4">З правилами ознайомлен і погоджуюсь </label>
                                         <a href="#">Публічний договір оферти</a>
                                     </div>
-                                    <!-- <div>{{ current_order }}</div>
-                                    <div>{{ current_delivery }}</div> -->
+                                    
                                     <div>
                                         <input type="submit" class="primary-btn form-control" value="Підтвердити спосіб оплати">
                                     </div>
                                     <div>
                                         <a class="gray_btn bill-btn" href="/catalog/index">Продовжити покупки</a>
                                     </div>
-                            
+                    
                                 </form>
                                 
                                 

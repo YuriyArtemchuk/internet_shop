@@ -1,8 +1,8 @@
 $(document).ready(() => {
-    console.log('cart.js -> OK');
+    console.log('cart_product_page.js -> OK');
 
    $('.products').on('click', '.add-to-cart-btn', (event) => {
-        console.log('add-btn -> OK');
+        console.log('add-btn product_page-> OK');
         //
         let mess = 'Для використання кошика ви можете обрати один із двох режімів:\n'
         mess += '1 - збереження кошика у базі даних\n   (буде доступно в усіх браузерах і всіх комп\'ютерах)\n';
@@ -12,6 +12,7 @@ $(document).ready(() => {
         if (confirm(mess)) {
             // 1. Збереження кошику у базі даних
             // =================================
+            console.log('Збереження кошику у базі даних');
             const userId = $('#user_id').val();
             console.log('User-ID: ' + userId);
             //
@@ -19,20 +20,17 @@ $(document).ready(() => {
                 alert('Для збереження кошика у базі даних Ви повинні авторізуватись')
                 }
             else {
-                let productId1 = $(event.target).parent().prev().val();   // для круглої кнопки кошика
-                let productId2 = $(event.target).prev().val();   // для квадратної кнопки кошика
-                console.log('productId ->' + productId1);
-                console.log('productId ->' + productId2);
+                let productId = $(event.target).prev().val();  
+                console.log('productId ->' + productId);
+               
                 // Відправка AJAX-запиту на сервер для збереження товару у БД:
                 $.ajax({
-                    url: '/cart/ajax_cart',
-                    data: `uid=${userId}&pid1=${productId1}&pid2=${productId2}`,
+                    url: '/catalog/ajax_cart_product_page',
+                    data: `uid=${userId}&pid=${productId}`,
                     success: (response) => {
                         console.log('AJAX -> OK');
                         console.log('UID: ' + response.uid);
-                        console.log('PID1: ' + response.pid1);
-                        console.log('PID2: ' + response.pid2);
-                        console.log('current_qty', response.current_qty)
+                        console.log('PID: ' + response.pid);
                         //
                         $('#cart-count').text(' ' + response.count);
                         $('.cart-summary').find('h5').text(response.count + ' товарів обрано');

@@ -3,7 +3,6 @@ from django.urls import reverse
 
 
 class Category(models.Model):
-
     name = models.CharField(max_length=100, unique=True, null=False)
 
     def __str__(self) -> str:
@@ -14,7 +13,6 @@ class Category(models.Model):
 
 
 class Producer(models.Model):
-
     name = models.CharField(max_length=100, unique=True, null=False)
 
     def __str__(self) -> str:
@@ -23,8 +21,8 @@ class Producer(models.Model):
     def get_absolute_url(self):
         return reverse('brand', kwargs={'prod_id': self.pk})
 
-class Product(models.Model):
 
+class Product(models.Model):
     name = models.CharField(max_length=100, unique=True, null=False)
     description = models.TextField(max_length=500, null=False)
     price = models.FloatField(null=False, default=0.00)
@@ -34,8 +32,8 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     producer = models.ForeignKey(Producer, on_delete=models.CASCADE)
 
+    def get_absolute_url(self):
+        return reverse('product', kwargs={'prod_id': self.pk})
+
     def __str__(self) -> str:
         return str(self.name)
-
-
-

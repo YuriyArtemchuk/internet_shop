@@ -34,6 +34,7 @@
                                 <th >{% trans 'Photo' %}</th>
                                 <th >{% trans 'Price' %}</th>
                                 <th >{% trans 'Quintity' %}</th>
+                                <th >{% trans 'Total price' %}</th>
                                 <th >{% trans 'Choice' %}</th>
                                 <th >{% trans 'Delete' %}</th>
                             </tr>
@@ -41,7 +42,7 @@
                         <tbody>
                         {% for p in user_items %}
                             <tr>
-                                <td class="id_cell">{{ p.id }}</td>
+                                <td class="id_cell" value="{{ p.id }}">{{ p.id }}</td>
                                 <td>{{ p.product.name }}</td>
                                 <td>
                                     <div class="media-body">
@@ -49,23 +50,35 @@
                                             <a href="/media/{{ p.product.photo }}" role="button"><img src="/media/{{ p.product.photo }}" alt="zoom-image"
                                             class="img-fluid my-photo"></a>
                                         </div>
-                                        <!-- <div class="media-body">
-                                            <p>Minimalistic shop for multipurpose use</p>
-                                        </div> -->
+                                        
                                     </div>
                                 </td>
                                 <td class="price_cell">
-                                    {{ p.product.price }}
+                                    <span class="product_price">
+                                        {{ p.product.price }}
+                                    </span>
+                                    <!-- <input type="hidden" id="price_cell_value" value="{{ p.product.price }}"> -->
+                                    <input type="hidden" class="price_cell_value" id="price_cell_value" value="{{ p.product.price }}">
                                 </td>
                                 <td>
                                     <div class="product_count">
-                                        <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:"
-                                            class="input-text qty">
-                                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-                                            class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
-                                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-                                            class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
+                                        <form action="" id="form_qty" class="form-inline">
+                                            <div>
+                                                <input class="qty-product" type="number" value="{{ p.qty_in_cart }}">
+                                            </div>
+                                            
+
+                                            <!-- <div class="form-group">
+                                                <input type="number" id="qty_product" data-cart_product_id="{{ p.qty_in_cart }}" class="form-control" value="{{ p.qty_in_cart }}">
+                                                <button class="increase items-count" type="button" id="button1" data-button_id="{{ p.id }}"><i class="lnr lnr-chevron-up"></i></button>
+                                                <button class="reduced items-count" type="button" id="button2" data-button_id="{{ p.id }}"><i class="lnr lnr-chevron-down"></i></button>
+                                            </div> -->
+                                        </form>
+                                       
                                     </div>
+                                </td>
+                                <td class="total_price_cell">
+                                    {{ p.total_price_in_cart }}
                                 </td>
                                 <td>
                                     <input type="checkbox" class="check" value="yes" checked>
@@ -130,6 +143,7 @@
 </style>
 <script src="{% static 'js/calc_cart.js' %}"> </script>
 <script src="{% static 'js/del_cart_items.js' %}"> </script>
+
     <!--================End Cart Area =================-->
 
 {% endblock content %}
